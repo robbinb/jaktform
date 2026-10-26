@@ -111,6 +111,7 @@ a.btn{text-decoration:none}
 .cnt[data-n="0"]{display:none}
 .burger{display:none}
 .sbox{position:relative}
+.hl{display:contents}
 .sbtn{display:none}
 .sbp{display:none}
 .mback{display:none;align-items:center;gap:2px;height:32px;padding:0 12px 0 6px;border-radius:999px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);font-size:13px;font-weight:500;text-decoration:none}
@@ -563,7 +564,7 @@ a.btn{text-decoration:none}
 /* ===== Kassa ===== */
 .hd-secure{display:none;align-items:center;gap:8px;font-size:13px;color:var(--gran);justify-self:end}
 .hd-secure .ico{width:16px;height:16px}
-.device.focus .hd-topb,.device.focus .hd-nav,.device.focus .sbox,.device.focus .acts,.device.focus .burger{display:none}
+.device.focus .hd-topb,.device.focus .hd-nav,.device.focus .sbox,.device.focus .acts,.device.focus .burger,.device.focus .sbtn{display:none}
 .device.focus .hd-secure{display:inline-flex}
 .device.focus .hd-main{grid-template-columns:1fr auto;height:72px}
 .device.focus #ft{display:none}
@@ -833,16 +834,24 @@ a.btn{text-decoration:none}
 /* ===== Mobil ===== */
 @media (max-width:760px){
   .wrap{padding-left:16px;padding-right:16px}
-  .hd-main{height:56px;grid-template-columns:44px 1fr auto;gap:4px}
+  .hd-main{height:56px;grid-template-columns:1fr auto 1fr;gap:4px}
+  .hl{display:flex;align-items:center;grid-column:1;grid-row:1}
+  .sbtn{display:grid}
+  .acts{grid-column:3;grid-row:1}
+  .acts .ib.acc-only.fav-ib{display:grid}
   .burger{display:grid}
   .logo{justify-self:center;font-size:14px;grid-column:2;grid-row:1}
   .hd-main .sbox{grid-column:1/-1;grid-row:2}
-  .hd-main{grid-template-rows:56px auto;height:auto;padding-bottom:10px}
+  .hd-main{grid-template-rows:56px auto;height:auto;padding-bottom:0}
+  /* Samma kompakta sidhuvud på alla sidor. Sökfältet fälls ut från ikonen. */
+  .device:not(.sopen) .hd-main .sbox{display:none}
+  .device.sopen .hd-main{padding-bottom:10px}
+  .device.sopen .sbtn{background:var(--well)}
   .acts .ib.acc-only{display:none}
   .sfield{height:46px}
   .sfield kbd{display:none}
   .hd-nav{display:none}
-  .panel{position:absolute;top:100%;height:calc(var(--devh,800px) - 112px);max-height:none;overflow:auto}
+  .panel{position:absolute;top:100%;height:calc(var(--devh,800px) - var(--hdh,112px));max-height:none;overflow:auto}
   .spanel{grid-template-columns:1fr;gap:28px;max-height:none;padding-block:20px 40px}
   .spanel .scol2{display:block}
   .sgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -884,7 +893,7 @@ a.btn{text-decoration:none}
   .plp{grid-template-columns:1fr;padding-block:16px 0}
   .fside{display:none}
   .mfbtn{display:inline-flex}
-  .tools{position:sticky;top:112px;z-index:5;background:var(--bg);padding-block:10px;margin:0 -16px 16px;padding-left:16px;padding-right:16px}
+  .tools{position:sticky;top:var(--hdh,112px);z-index:5;background:var(--bg);padding-block:10px;margin:0 -16px 16px;padding-left:16px;padding-right:16px}
   .tools .cntx{display:none}
   .pdp{grid-template-columns:1fr;gap:20px;padding-block:0;margin:0 -16px}
   .gmain{aspect-ratio:1/1;background:var(--well)}
@@ -914,9 +923,6 @@ a.btn{text-decoration:none}
   .mback{display:inline-flex}
   .pdpw{position:relative}
   .pdp-crumbs{position:absolute;z-index:4;top:14px;left:14px;padding:0}
-  .device.pdpv:not(.sopen) .hd-main .sbox{display:none}
-  .device.pdpv:not(.sopen) .hd-main{padding-bottom:0}
-  .device.pdpv .sbtn{display:grid}
   .why{grid-template-columns:1fr;padding:32px 24px;gap:28px}
   .revs{grid-template-columns:1fr;gap:24px}
   .revc{grid-template-columns:1fr}
@@ -1359,15 +1365,14 @@ function renderHeader(){
  hd.innerHTML=`
  <div class="hd-topb"><div class="hd-top wrap"><span>${I.truck}Fri frakt över 1 000 kr</span><span>${I.ret}Fria returer i 30 dagar</span><span>${I.clock}Leverans 1–3 vardagar</span><span>${I.card}Swish · Klarna · Kort</span><span style="opacity:.7">(exempelvillkor)</span></div></div>
  <div class="hd-main wrap">
-  <button class="ib burger" type="button" data-act="side" aria-label="Öppna menyn">${I.menu}</button>
+  <div class="hl"><button class="ib burger" type="button" data-act="side" aria-label="Öppna menyn">${I.menu}</button><button class="ib sbtn" type="button" data-act="msearch" aria-label="Sök" aria-expanded="false">${I.search}</button></div>
   <a class="logo" href="/" data-go="home" aria-label="Jaktform, till startsidan">JAKTFORM</a>
   <form class="sbox" role="search" id="sform" autocomplete="off">
    <div class="sfield">${I.search}<input id="q" type="search" placeholder="Sök produkt, kategori eller jaktform" aria-label="Sök" aria-controls="spanel" aria-expanded="false"><button class="ib clr" type="button" data-act="sclear" aria-label="Rensa sökningen" hidden>${I.close}</button><kbd>/</kbd></div>
   </form>
   <div class="acts">
-   <button class="ib sbtn" type="button" data-act="msearch" aria-label="Sök">${I.search}</button>
    <button class="ib acc-only" type="button" data-act="note" data-msg="Mina sidor ingår inte i prototypen" aria-label="Mitt konto">${I.user}</button>
-   <button class="ib acc-only" type="button" data-act="note" data-msg="Favoriter sparas på produktkorten" aria-label="Favoriter">${I.heart}</button>
+   <button class="ib acc-only fav-ib" type="button" data-act="note" data-msg="Favoriter sparas på produktkorten" aria-label="Favoriter">${I.heart}</button>
    <button class="ib" type="button" data-act="cart" aria-label="Varukorg" id="bagb">${I.bag}<span class="cnt num" data-n="0"><span>0</span></span></button>
   </div>
  </div>
@@ -1501,7 +1506,7 @@ function openSearch(){
  if(!RM)sp.animate([{opacity:0,transform:'translateY(-8px)'},{opacity:1,transform:'none'}],{duration:340,easing:E});
  $('#scrim').classList.add('on');
 }
-function closeSearch(silent){const sp=$('#spanel');if(!sp||sp.hidden)return;sp.hidden=true;$('#q').setAttribute('aria-expanded','false');if(!silent)$('#scrim').classList.remove('on');dev.classList.remove('sopen')}
+function closeSearch(silent){if(dev.classList.contains('sopen')){dev.classList.remove('sopen');const b=$('.sbtn');if(b)b.setAttribute('aria-expanded','false')}const sp=$('#spanel');if(!sp||sp.hidden)return;sp.hidden=true;$('#q').setAttribute('aria-expanded','false');if(!silent)$('#scrim').classList.remove('on');dev.classList.remove('sopen');const sb=$('.sbtn');if(sb)sb.setAttribute('aria-expanded','false')}
 function runSearch(q){
  q=q.trim(); if(!q)return;
  S.recent=[q,...S.recent.filter(r=>r!==q)].slice(0,5);
@@ -2218,7 +2223,7 @@ document.addEventListener('click',e=>{
  const rm=t.closest('[data-rm]'); if(rm){S.cart.splice(+rm.dataset.rm,1);setCount(true);renderDrawer();return}
  const a=t.closest('[data-act]'); if(a){const k=a.dataset.act;
   if(k==='cart')openDrawer();
-  else if(k==='msearch'){dev.classList.add('sopen');const q=$('#q');if(q){q.focus();openSearch()}}
+  else if(k==='msearch'){if(dev.classList.contains('sopen')){closeSearch();return}dev.classList.add('sopen');$('.sbtn').setAttribute('aria-expanded','true');const q=$('#q');if(q){q.focus();openSearch()}}
   else if(k==='cclose'||k==='fsclose'||k==='sclose2')closeSheets();
   else if(k==='checkout'){if(!S.cart.length){toast('Varukorgen är tom');return}go('checkout')}
   else if(k==='cartback'){go(S.prevView&&S.prevView!=='checkout'&&S.prevView!=='order'?S.prevView:'home');setTimeout(openDrawer,RM?0:420)}
@@ -2261,6 +2266,7 @@ if(matchMedia('(max-width:760px)').matches){/* telefon: appen fyller skärmen */
 const setSbw=()=>{const h=document.documentElement;if(getComputedStyle(h).overflowY==='hidden')return;h.style.setProperty('--sbw',Math.max(0,innerWidth-h.clientWidth)+'px')};
 setSbw(); new ResizeObserver(setSbw).observe(scrEl);
 window.addEventListener('resize',()=>{setSbw();if(S.view==='pdp')fitInfo()},{passive:true});
+new ResizeObserver(()=>dev.style.setProperty('--hdh',hd.offsetHeight+'px')).observe(hd);
 /* ===================================================================
    KASSA
    =================================================================== */
