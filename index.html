@@ -114,6 +114,7 @@ a.btn{text-decoration:none}
 .hl{display:contents}
 .sbtn{display:none}
 .sbp{display:none}
+.cfull{display:contents}
 .mback{display:none;align-items:center;gap:2px;height:32px;padding:0 12px 0 6px;border-radius:999px;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--ink);font-size:13px;font-weight:500;text-decoration:none}
 .mback .ico{width:16px;height:16px}
 .pdp-crumbs .mback{background:rgba(255,255,255,.9);color:var(--ink)}
@@ -420,7 +421,7 @@ a.btn{text-decoration:none}
 .line .t{display:grid;gap:4px;font-size:14px;align-content:start}
 .line .t .top{display:flex;justify-content:space-between;gap:10px}
 .line .t b{font-weight:500}
-.line .ctl{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+.line .ctl{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;margin-top:6px}
 .qty{display:inline-flex;align-items:center;background:var(--surf);border-radius:999px;height:38px}
 .qty button{width:38px;height:38px;border:0;background:none;border-radius:50%;font-size:16px}
 .qty span{min-width:22px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px}
@@ -912,13 +913,9 @@ a.btn{text-decoration:none}
   .thumbs button{width:46px;height:46px}
   .thumbs::-webkit-scrollbar{display:none}
   .pinfo{padding:0 16px;position:static}
-  /* köpraden: knappen ligger på sin plats, raden längst ner visas först när man skrollat förbi den */
-  .sbar{top:auto;bottom:0;transform:translateY(100%);box-shadow:0 -1px 0 var(--line),0 -12px 30px rgba(14,16,17,.06);padding-bottom:env(safe-area-inset-bottom)}
-  .sbar.on{transform:none}
-  .sbar .in{height:auto;padding-top:12px;padding-bottom:12px}
-  .sbar .im,.sbar .t,.sbar .sz,.sbar .in>span[style]{display:none}
-  .sbar .btn{width:100%;height:52px;gap:0}
-  .sbar .sbp{display:inline}
+  /* köpraden: knappen ligger kvar längst ner och fastnar sedan på sin egen plats när man skrollar */
+  .sbar{display:none}
+  .buy{position:sticky;bottom:0;z-index:6;background:var(--bg);margin:0 -16px;padding:12px 16px calc(16px + env(safe-area-inset-bottom));box-shadow:0 -1px 0 var(--line)}
   .cfull{display:none}
   .mback{display:inline-flex}
   .pdpw{position:relative}
@@ -996,6 +993,38 @@ a.chip .n{font-size:12px;color:var(--gran);font-variant-numeric:tabular-nums}
 .om-mos img{width:100%;height:100%;object-fit:cover;border-radius:var(--r-l);display:block}
 .om-mos img:first-child{grid-row:span 2}
 .om-mos img:last-child{grid-column:span 2}
+.pinfo>:first-child{position:relative}
+.pfav{position:absolute;right:0;top:-12px;background:var(--surf)}
+.pfav[aria-pressed="true"] .ico,.fv-x .ico{fill:var(--ink)}
+a.ib{color:inherit;text-decoration:none}
+.lnk2{display:inline-flex;gap:16px;white-space:nowrap}
+.fvw{padding-bottom:24px}
+.fv-h{display:grid;gap:8px;margin:20px 0 32px}
+.fv-h p{color:var(--gran);font-size:15px}
+.fv-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.fvi{display:grid;grid-template-columns:160px minmax(0,1fr);gap:20px;background:var(--surf);border-radius:var(--r-l);padding:16px}
+.fv-im{display:block;aspect-ratio:4/5;border-radius:var(--r-m);overflow:hidden;background:var(--well)}
+.fv-im img{width:100%;height:100%;object-fit:cover;display:block}
+.fv-b{display:grid;gap:12px;align-content:start}
+.fv-t{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.fv-t>div{display:grid;gap:4px}
+.fv-n{font-weight:600;font-size:17px;color:inherit;text-decoration:none}
+.fv-p{font-size:15px}
+.fv-x{background:var(--bg);flex:none}
+.fv-sz{display:flex;flex-wrap:wrap;gap:6px}
+.fv-sz button{position:relative;min-width:46px;height:40px;padding:0 12px;border-radius:999px;border:1px solid transparent;background:var(--bg);font-size:13px;font-variant-numeric:tabular-nums}
+.fv-sz button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.fv-sz button:disabled{background:transparent;color:#9AA2A6;text-decoration:line-through;box-shadow:inset 0 0 0 1px var(--line);cursor:not-allowed}
+.fv-sz button i{position:absolute;right:6px;top:6px;width:6px;height:6px;border-radius:50%;background:#C47A1C}
+@media (hover:hover){.fv-sz button:not(:disabled):not([aria-pressed="true"]):hover{border-color:var(--ink)}}
+.fv-h2{font-size:13px;color:var(--gran)}
+.fv-h2.err{color:#B3261E}
+.fv-b .btn{justify-self:start}
+.fv-empty{background:var(--surf);border-radius:var(--r-l);padding:56px 32px;display:grid;justify-items:center;text-align:center;gap:12px}
+.fv-empty p{color:var(--gran);max-width:44ch}
+.fv-empty .btn{margin-top:8px}
+.fv-ic{width:56px;height:56px;border-radius:50%;background:var(--bg);display:grid;place-items:center}
+.fv-ic .ico{width:24px;height:24px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .okbtns{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
 .pf{background:var(--surf);border-radius:var(--r-l);padding:20px;display:grid;gap:16px}
@@ -1224,6 +1253,17 @@ a.chip .n{font-size:12px;color:var(--gran);font-variant-numeric:tabular-nums}
   .om-steps,.om-trust{grid-template-columns:1fr}
   .om-team{grid-template-columns:1fr;gap:20px}
   .om-ppl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fv-list{grid-template-columns:1fr}
+  .fvi{grid-template-columns:88px minmax(0,1fr);gap:14px;padding:12px}
+  .fv-sz{display:grid;grid-template-columns:repeat(auto-fill,minmax(40px,1fr))}
+  .fv-sz button{min-width:0;padding:0}
+  /* aviseringar visas under sidhuvudet så att de aldrig hamnar över köpknappen */
+  .toast{top:calc(var(--hdh,60px) + 12px);bottom:auto;transform:translate(-50%,-12px)}
+  .toast.on{transform:translate(-50%,0)}
+  .fv-b .btn{justify-self:stretch}
+  .fv-h{margin:14px 0 20px}
+  .pfav{top:-10px}
+  .lnk2{gap:12px}
   .okbtns{display:grid;grid-template-columns:1fr}
   .okbtns .btn{width:100%}
   .gband{grid-template-columns:1fr;margin-top:28px}
@@ -1238,6 +1278,8 @@ a.chip .n{font-size:12px;color:var(--gran);font-variant-numeric:tabular-nums}
   .fsimg{aspect-ratio:3/2}
   .rvw h1{font-size:30px}
 }
+/* Låga skärmar (t.ex. iPhone SE): något tätare köprad så att produktnamnet får plats ovanför */
+@media (max-width:760px) and (max-height:620px){.buy{padding-top:8px;padding-bottom:calc(10px + env(safe-area-inset-bottom));gap:6px}.buy .addc{height:48px}}
 </style>
 
 <div class="stage" id="stage">
@@ -1355,6 +1397,10 @@ const PRETTY=w=>{const p=P.find(x=>x.hn===w);if(p)return p.name.toLowerCase();co
 
 /* ===== tillstånd ===== */
 const S={hero:'static',view:'home',plp:{cat:'jaktklader',q:'',form:''},filt:{},sort:'pop',pid:'p1',cart:[],fav:new Set(),recent:['ulljacka','kikare'],hist:[]};
+/* Favoriter sparas i webbläsaren (utan konto). Går det inte att spara fungerar de ändå under besöket. */
+try{const f=JSON.parse(localStorage.getItem('jf_fav')||'[]');if(Array.isArray(f))f.forEach(id=>{if(PBY[id])S.fav.add(id)})}catch(e){}
+function saveFav(){try{localStorage.setItem('jf_fav',JSON.stringify([...S.fav]))}catch(e){}}
+const FV={size:{}};
 const dev=$('#device'), scrEl=$('#scr'), hd=$('#hd'), main=$('#main');
 /* Sidan skrollar i dokumentet, så att mobilens adressfält kan krympa. scr är ett tunt lager mot fönstret. */
 const scr={get scrollTop(){return window.scrollY},set scrollTop(v){window.scrollTo(0,v)},scrollTo:o=>window.scrollTo(o),addEventListener:(...a)=>window.addEventListener(...a),appendChild:n=>scrEl.appendChild(n)};
@@ -1372,7 +1418,7 @@ function renderHeader(){
   </form>
   <div class="acts">
    <button class="ib acc-only" type="button" data-act="note" data-msg="Mina sidor ingår inte i prototypen" aria-label="Mitt konto">${I.user}</button>
-   <button class="ib acc-only fav-ib" type="button" data-act="note" data-msg="Favoriter sparas på produktkorten" aria-label="Favoriter">${I.heart}</button>
+   <a class="ib acc-only fav-ib" href="/favoriter" data-go="fav" aria-label="Favoriter" id="favb">${I.heart}<span class="cnt num" data-n="0"><span>0</span></span></a>
    <button class="ib" type="button" data-act="cart" aria-label="Varukorg" id="bagb">${I.bag}<span class="cnt num" data-n="0"><span>0</span></span></button>
   </div>
  </div>
@@ -1882,6 +1928,7 @@ function pdpHTML(){
    <div style="display:grid;gap:12px">
     <a class="pbrand" href="/varumarken/${slug(p.brand)}" data-brand="${esc(p.brand)}">${esc(p.brand)}</a>
     <h1 class="pname">${esc(p.name)}</h1>
+    <button class="ib pfav" type="button" data-fav="${p.id}" aria-pressed="${S.fav.has(p.id)}" aria-label="Spara ${esc(p.name)} som favorit">${I.heart}</button>
     <button class="rate" type="button" data-act="torevs">★★★★★ ${p.rate[0].toString().replace('.',',')} · ${p.rate[1]} omdömen <span class="exm" style="text-decoration:none;margin-left:4px">exempel</span></button>
     <div class="pprice"><b>${kr(p.price)}</b><span class="small">demopris</span></div>
     <div class="klarna">Klarna: från ${kr(cost(p).m)}/mån i 12 månader <span class="exm">exempel</span></div>
@@ -1946,11 +1993,13 @@ function renderSbar(p){
  let sb=$('#sbar'); if(!sb){sb=document.createElement('div');sb.id='sbar';sb.className='sbar';sb.setAttribute('aria-hidden','true');dev.appendChild(sb)}
  sb.innerHTML=`<div class="wrap in"><span class="im"><img src="${src(p.img)}" alt="" style="object-position:${p.pos}"></span><div class="t"><span class="brand">${esc(p.brand)}</span><b>${esc(p.name)}</b><span class="num">${kr(cost(p).t)} inkl. frakt (exempel)</span></div>
   ${p.sizes?`<div class="sz" role="group" aria-label="Storlek">${p.sizes.map(s=>`<button type="button" data-ssize="${s}" aria-pressed="${pdpState.size===s}" ${p.stock[s]==='out'?'disabled':''}>${s}</button>`).join('')}</div>`:'<span style="margin-left:auto"></span>'}
-  <button class="btn btn-pri" type="button" id="sbadd">Lägg i varukorg<span class="sbp"> · ${kr(p.price)}</span></button></div>`;
+  <button class="btn btn-pri" type="button" id="sbadd">Lägg i varukorg<span class="sbp">&nbsp;·&nbsp;${kr(p.price)}</span></button></div>`;
  if(sbObs)sbObs.disconnect();
  const btn=$('#addc'); if(!btn)return;
- /* Raden visas när köpknappen har passerat under sidhuvudet. Kontrolleras vid varje skroll, så att snabba svep inte missas. */
- const chk=()=>{const b=$('#addc');const past=!!b&&b.isConnected&&b.getBoundingClientRect().bottom<hd.offsetHeight;const on=S.view==='pdp'&&past;sb.classList.toggle('on',on);sb.setAttribute('aria-hidden',!on)};
+ /* Köpraden kontrolleras vid varje skroll, så att snabba svep inte missas. */
+ const chk=()=>{const b=$('#addc');if(!b||!b.isConnected)return;const r=b.getBoundingClientRect();const mob=innerWidth<=760;
+  /* Mobil: raden syns hela tiden utom när köpknappen själv syns. Desktop: när knappen passerats. */
+  const show=mob?!(r.top<innerHeight&&r.bottom>hd.offsetHeight):r.bottom<hd.offsetHeight;const on=S.view==='pdp'&&show;sb.classList.toggle('on',on);sb.setAttribute('aria-hidden',!on)};
  let raf=0; const onS=()=>{if(raf)return;raf=requestAnimationFrame(()=>{raf=0;chk()})};
  window.addEventListener('scroll',onS,{passive:true}); window.addEventListener('resize',onS,{passive:true}); chk();
  sbObs={disconnect(){window.removeEventListener('scroll',onS);window.removeEventListener('resize',onS)}};
@@ -2022,7 +2071,7 @@ function renderDrawer(){
  d.innerHTML=`<div class="dr-h"><h3>Varukorg <span class="small num">(${cartCount()})</span></h3><button class="ib" type="button" data-act="cclose" aria-label="Stäng varukorgen">${I.close}</button></div>
   ${S.cart.length?`<div class="ship"><span>${left?`Du har <b class="num">${kr(left)}</b> kvar till fri frakt`:'Du har fri frakt'} <span class="exm">exempel</span></span><div class="bar"><i style="width:${Math.min(100,t/FREE*100)}%"></i></div></div>
   <div class="dr-b">${S.cart.map((c,i)=>`<div class="line"><div class="im"><img src="${src(c.p.img)}" alt="" style="object-position:${c.p.pos}"></div><div class="t"><span class="brand">${esc(c.p.brand)}</span><div class="top"><b>${esc(c.p.name)}</b><span class="num">${kr(c.p.price*c.q)}</span></div><span class="small">${c.color}${c.size?' · Storlek '+c.size:''}</span>
-    <div class="ctl"><div class="qty"><button type="button" data-qty="${i}" data-d="-1" aria-label="Minska antal">−</button><span>${c.q}</span><button type="button" data-qty="${i}" data-d="1" aria-label="Öka antal">+</button></div><button class="btn-text" type="button" data-rm="${i}" style="font-size:13px">Ta bort</button></div></div></div>`).join('')}
+    <div class="ctl"><div class="qty"><button type="button" data-qty="${i}" data-d="-1" aria-label="Minska antal">−</button><span>${c.q}</span><button type="button" data-qty="${i}" data-d="1" aria-label="Öka antal">+</button></div><span class="lnk2"><button class="btn-text" type="button" data-mvfav="${i}" style="font-size:13px">Flytta till favoriter</button><button class="btn-text" type="button" data-rm="${i}" style="font-size:13px">Ta bort</button></span></div></div></div>`).join('')}
    ${recs.length?`<div class="recs"><h4>Passar bra till</h4>${recs.map(r=>`<div class="rec"><div class="im"><img src="${src(r.img)}" alt="" style="object-position:${r.pos}"></div><div><b style="font-weight:500">${esc(r.name)}</b><div class="small num">${kr(r.price)}</div></div><button class="ib" type="button" data-qa="${r.id}" aria-label="Lägg till ${esc(r.name)}" style="background:var(--bg)">${I.plus}</button></div>`).join('')}</div>`:''}</div>
   <div class="dr-f"><div class="r"><span>Delsumma</span><span class="num">${kr(t)}</span></div><div class="r"><span>Frakt</span><span>${left?'Beräknas i kassan':'0 kr'}</span></div><div class="r tot"><span>Totalt</span><span class="num">${kr(t)}</span></div>
    <button class="btn btn-pri btn-lg" type="button" data-act="checkout">Till kassan<span class="ar">${I.arrow}</span></button><button class="btn btn-ton" type="button" data-act="cclose">Fortsätt handla</button>
@@ -2082,7 +2131,7 @@ function go(view,params={},opt={}){
  {const nl=$('.hd-nav .nlink');if(nl){view==='guide'?nl.setAttribute('aria-current','page'):nl.removeAttribute('aria-current')}}
  if(opt.from&&view==='pdp'&&!RM){shared(opt.from);return}
  S.view=view; syncTabs();
- const swap=()=>{clearTimeout(hero.timer);dev.classList.toggle('focus',view==='checkout');main.innerHTML=view==='home'?homeHTML():view==='plp'?plpHTML():view==='pdp'?pdpHTML():view==='form'?formHTML():view==='checkout'?checkoutHTML():view==='order'?orderHTML():view==='guide'?guideHTML():view==='om'?omHTML():view==='review'?reviewHTML():kitHTML();scr.scrollTop=0;
+ const swap=()=>{clearTimeout(hero.timer);dev.classList.toggle('focus',view==='checkout');main.innerHTML=view==='home'?homeHTML():view==='plp'?plpHTML():view==='pdp'?pdpHTML():view==='form'?formHTML():view==='checkout'?checkoutHTML():view==='order'?orderHTML():view==='guide'?guideHTML():view==='om'?omHTML():view==='review'?reviewHTML():view==='fav'?favHTML():kitHTML();scr.scrollTop=0;
   if(view==='home')bindHome(); if(view==='plp')bindPLP(); if(view==='pdp')bindPDP(); if(view==='kit')bindKit(); if(view==='form')bindForm(); if(view==='checkout')bindCheckout(); if(view==='order')bindOrder(); if(view==='guide')bindGuide(); if(view==='review')bindReview();
   if(document.activeElement&&document.activeElement!==document.body)document.activeElement.blur();
   /* iOS: nollställ både dokument och skrollyta och tvinga en ny ritning, annars kan Safari behålla läget och lämna delar oritade */
@@ -2153,6 +2202,7 @@ function seoFor(v){
  if(v==='form'){const f=S.form||'Smygjakt';return {path:'/'+slug(f),title:`Kläder och utrustning för ${f.toLowerCase()}${T}`,idx:true}}
  if(v==='guide')return {path:'/guider/infor-algjakten',title:'Inför älgjakten: så klär du dig och det här ska med | Jaktform',idx:true};
  if(v==='om')return {path:'/om-jaktform',title:'Om Jaktform – färre saker, bättre valda'+T,idx:true};
+ if(v==='fav')return {path:'/favoriter',title:'Favoriter'+T,idx:false};
  if(v==='review')return {path:'/omdome',title:'Skriv ett omdöme'+T,idx:false};
  if(v==='checkout')return {path:'/kassa',title:'Kassa'+T,idx:false};
  if(v==='order')return {path:'/kassa/bekraftelse',title:'Tack för din order'+T,idx:false};
@@ -2176,6 +2226,26 @@ function syncSEO(v){
  let ld=document.getElementById('ld'); if(!ld){ld=document.createElement('script');ld.type='application/ld+json';ld.id='ld';document.head.appendChild(ld)}
  const g=ldFor(v,m); ld.textContent=g.length?JSON.stringify({'@context':'https://schema.org','@graph':g}):'';
 }
+function favHTML(){
+ const list=[...S.fav].map(id=>PBY[id]).filter(Boolean);
+ const head=`<nav class="crumbs" aria-label="Brödsmulor"><a href="/" data-go="home">Start</a><span>/</span><span style="color:var(--ink)">Favoriter</span></nav>
+ <header class="fv-h"><h1 class="d2">Favoriter</h1><p>${list.length?`${list.length} ${list.length===1?'sparad produkt':'sparade produkter'}. `:''}Sparas i den här webbläsaren, inget konto behövs. <span class="exm">demo</span></p></header>`;
+ if(!list.length)return `<div class="wrap fvw">${head}
+  <div class="fv-empty"><span class="fv-ic">${I.heart}</span><h2 class="d3">Inga favoriter än</h2><p>Tryck på hjärtat på en produkt så hamnar den här. Bra när du vill jämföra eller fundera ett tag.</p><a class="btn btn-pri" href="/jaktklader" data-go="plp" data-cat="" data-form="Drevjakt">Se urvalet</a></div>
+  <section class="sec" style="padding-bottom:0"><div class="sec-h"><div class="l"><span class="eyebrow">Inför säsongen</span><h2 class="d3">Mest köpt inför älgjakten</h2></div></div><div class="pgrid rail">${['p1','p5','p7','p2'].map(id=>card(PBY[id])).join('')}</div></section></div>`;
+ return `<div class="wrap fvw">${head}<div class="fv-list">${list.map(p=>{const sz=FV.size[p.id],st=p.stock||{},out=p.sizes&&p.sizes.every(x=>st[x]==='out');
+  const hint=!p.sizes?'I lager.':sz?(st[sz]==='low'?`Få kvar i ${sz}.`:`${sz} finns i lager.`):'Välj storlek för att se lagerstatus.';
+  return `<article class="fvi" id="fvi-${p.id}">
+   <a class="fv-im" href="${pdpPath(p)}" data-open="${p.id}"><img src="${src(p.img)}" alt="${esc(p.name)}" style="object-position:${p.pos}${cutSt(p.img)}"></a>
+   <div class="fv-b">
+    <div class="fv-t"><div><span class="brand">${esc(p.brand)}</span><a class="fv-n" href="${pdpPath(p)}" data-open="${p.id}">${esc(p.name)}</a><span class="fv-p num">${kr(p.price)} <span class="small">demopris</span></span></div>
+     <button class="ib fav fv-x" type="button" data-fav="${p.id}" aria-pressed="true" aria-label="Ta bort ${esc(p.name)} från favoriter">${I.heart}</button></div>
+    ${p.sizes?`<div class="fv-sz" role="group" aria-label="Storlek">${p.sizes.map(x=>`<button type="button" data-fvp="${p.id}" data-fvsize="${x}" aria-pressed="${sz===x}" ${st[x]==='out'?'disabled':''}>${x}${st[x]==='low'?'<i aria-hidden="true"></i>':''}</button>`).join('')}</div>`:''}
+    <p class="fv-h2" id="fvh-${p.id}">${out?'Slutsåld just nu.':hint}</p>
+    <button class="btn btn-pri" type="button" data-fvadd="${p.id}" ${out?'disabled':''}>Lägg i varukorg</button>
+   </div></article>`}).join('')}</div></div>`;
+}
+function renderFav(){if(S.view!=='fav')return;const y=scr.scrollTop;main.innerHTML=favHTML();scr.scrollTop=y;syncSEO('fav')}
 function syncTabs(){$$('[data-tab]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tab===S.view));dev.classList.toggle('pdpv',S.view==='pdp');dev.classList.remove('sopen')}
 
 /* ===== händelser ===== */
@@ -2195,7 +2265,10 @@ document.addEventListener('click',e=>{
  const sgp=t.closest('[data-sgpick]'); if(sgp){const b=$(`.psz [data-size="${sgp.dataset.sgpick}"]`);closeSizeGuide();if(b){b.click();b.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'})}toast('Storlek '+sgp.dataset.sgpick+' vald');return}
  const nx=t.closest('[data-next]'); if(nx){const n=+nx.dataset.next;saveCO();if(stepValid(n)){CO.step=n+1;rerenderCO(n+1)}return}
  const ed=t.closest('[data-edit]'); if(ed){saveCO();CO.step=+ed.dataset.edit;rerenderCO(CO.step);return}
- const fav=t.closest('[data-fav]'); if(fav){const id=fav.dataset.fav;S.fav.has(id)?S.fav.delete(id):S.fav.add(id);fav.setAttribute('aria-pressed',S.fav.has(id));if(!RM)fav.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:320,easing:E});toast(S.fav.has(id)?'Sparad som favorit':'Borttagen från favoriter');return}
+ const fav=t.closest('[data-fav]'); if(fav){e.preventDefault();e.stopPropagation();toggleFav(fav.dataset.fav,fav);return}
+ const mv=t.closest('[data-mvfav]'); if(mv){const i=+mv.dataset.mvfav,c=S.cart[i];if(c){S.fav.add(c.p.id);S.cart.splice(i,1);saveFav();syncFav(c.p.id,true);setCount(true);renderDrawer();toast('Flyttad till favoriter')}return}
+ const fz=t.closest('[data-fvsize]'); if(fz&&!fz.disabled){FV.size[fz.dataset.fvp]=fz.dataset.fvsize;renderFav();return}
+ const fa=t.closest('[data-fvadd]'); if(fa){const p=PBY[fa.dataset.fvadd],sz=FV.size[p.id]||null;if(p.sizes&&!sz){const h=$('#fvh-'+p.id);if(h){h.textContent='Välj en storlek först.';h.classList.add('err')}return}addToCart(p,sz,$('#fvi-'+p.id+' img')||fa,null);return}
  const qa=t.closest('[data-qa]'); if(qa){e.stopPropagation();const c=qa.closest('.card');if(c)quickAdd(qa.dataset.qa,c);else{addToCart(PBY[qa.dataset.qa],null,qa);setTimeout(renderDrawer,820)}return}
  if(t.closest('.qs'))return;
  const sq=t.closest('[data-sq]'); if(sq){const q=sq.dataset.sq;$('#q').value=q;if(sq.classList.contains('chip')||sq.closest('.dym')){renderSearch();$('#q').focus()}else runSearch(q);return}
@@ -2259,12 +2332,24 @@ document.addEventListener('keydown',e=>{
  }
 });
 scr.addEventListener('scroll',()=>hd.classList.toggle('raised',scr.scrollTop>4),{passive:true});
+function toggleFav(id,el){
+ const on=!S.fav.has(id); on?S.fav.add(id):S.fav.delete(id); saveFav(); syncFav(id,true,el);
+ toast(on?'Sparad i favoriter':'Borttagen från favoriter');
+ if(S.view==='fav'&&!on){const r=$('#fvi-'+id);if(r&&!RM){r.animate([{opacity:1},{opacity:0,transform:'scale(.98)'}],{duration:220,easing:'ease-out',fill:'forwards'}).finished.then(renderFav)}else renderFav()}
+}
+/* Alla hjärtan för samma produkt visar samma läge, och räknaren i sidhuvudet följer med */
+function syncFav(id,anim,el){
+ $$(`[data-fav="${id}"]`).forEach(b=>{b.setAttribute('aria-pressed',S.fav.has(id));if(anim&&!RM&&(!el||b===el))b.animate([{transform:'scale(1)'},{transform:'scale(1.2)'},{transform:'scale(1)'}],{duration:320,easing:E})});
+ setFavCount(anim);
+}
+function setFavCount(anim){const c=$('#favb .cnt');if(!c)return;const n=S.fav.size;c.dataset.n=n;const s=$('span',c);s.textContent=n;if(anim&&!RM&&n)s.animate([{transform:'translateY(100%)',opacity:0},{transform:'none',opacity:1}],{duration:380,easing:E})}
 let tT=null;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tT);tT=setTimeout(()=>t.classList.remove('on'),2600)}
 if(matchMedia('(max-width:760px)').matches){/* telefon: appen fyller skärmen */}
 
 /* Mät den verkliga rullistan när sidan inte är låst, så att ersättningen blir exakt lika bred */
 const setSbw=()=>{const h=document.documentElement;if(getComputedStyle(h).overflowY==='hidden')return;h.style.setProperty('--sbw',Math.max(0,innerWidth-h.clientWidth)+'px')};
 setSbw(); new ResizeObserver(setSbw).observe(scrEl);
+setFavCount(false);
 window.addEventListener('resize',()=>{setSbw();if(S.view==='pdp')fitInfo()},{passive:true});
 new ResizeObserver(()=>dev.style.setProperty('--hdh',hd.offsetHeight+'px')).observe(hd);
 /* ===================================================================
